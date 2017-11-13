@@ -37,8 +37,8 @@ tgc <- summarySE(d, measurevar="l_curve")
 
 ggplot(data = d, aes(x=t, y=l_curve)) + 
   geom_errorbar(aes(ymin=l_curve-tgc$se, ymax=l_curve+tgc$se), width=.1) +
-  geom_smooth(se = TRUE) +
-  geom_line() +
+  geom_smooth(se = TRUE)  +
+#  geom_line()  +
   geom_point()
 
 
