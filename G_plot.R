@@ -8,7 +8,6 @@ library("ggplot2")  # графики
 d <- read.csv("data.csv")
 head(d)
 summary(d)
-tgc <- summarySE(d, measurevar="l_curve")
 
 t <- d$t
 l <- d$l
@@ -31,6 +30,10 @@ ggplot(data = d, aes(x = t, y = l_curve))  +
 
 ggplot(data = d, aes(x = t > 5, y = l_curve))  + 
   geom_boxplot() 
+
+
+tgc <- summarySE(d, measurevar="l_curve")
+# se - standard error of the mean
 
 ggplot(data = d, aes(x=t, y=l_curve)) + 
   geom_errorbar(aes(ymin=l_curve-tgc$se, ymax=l_curve+tgc$se), width=.1) +
