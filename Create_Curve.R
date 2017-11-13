@@ -2,7 +2,6 @@
 #setwd("E:/GitHub/R/Curve") # рабочая директория
 
 # создание базовой кривой
-# t <- 1:1000
 t <- seq(from = 1 , to = 10, by = 0.1 )
 l <- log2(t)
 plot(t,l,type = "l")
