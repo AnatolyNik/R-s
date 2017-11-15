@@ -14,13 +14,14 @@ l <- d$l
 l_curve <-  d$l_curve
 
 
-
+# график с цветной маркировкой
 ggplot(data = d, aes(x = t, y = l_curve, color = l_curve))  + stat_identity() + 
   xlab("Время испытания, сек") +
   ylab("Значение, Ра") +
   scale_color_continuous("Значение") +
   ggtitle("Зависимость давления от времени") 
 
+# boxplot в зависимости от диапазона х
 ggplot(data = d, aes(x = t, y = l_curve))  + 
   geom_point() + 
   geom_smooth(se = TRUE)
@@ -28,18 +29,30 @@ ggplot(data = d, aes(x = t, y = l_curve))  +
 #  stat_qq(aes(sample = .stdresid)) +
 #  geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.2)
 
+# boxplot в зависимости от диапазона х
 ggplot(data = d, aes(x = t > 5, y = l_curve))  + 
   geom_boxplot() 
 
-
+# вычисление статистики
 tgc <- summarySE(d, measurevar="l_curve")
-# se - standard error of the mean
 
+# errorbar - с учетом стандартного отклонения от среднего (se - standard error of the mean)
 ggplot(data = d, aes(x=t, y=l_curve)) + 
   geom_errorbar(aes(ymin=l_curve-tgc$se, ymax=l_curve+tgc$se), width=.1) +
   geom_smooth(se = TRUE)  +
 #  geom_line()  +
   geom_point()
+
+# логарифмическая шкала по х
+ggplot(data = d, aes(x=t, y=l_curve)) + 
+  geom_smooth(se = TRUE)  +
+#    geom_line()  +
+  geom_point() + 
+  scale_x_log10() +
+  ggtitle("Логарифмическая шкала по Х") 
+
+fft_d <- fft(d$l_curve, inverse = FALSE)
+qplot(x=fft_d, y=fft_d, data = fft_d) 
 
 
 # http://www.cookbook-r.com/Manipulating_data/Summarizing_data/
